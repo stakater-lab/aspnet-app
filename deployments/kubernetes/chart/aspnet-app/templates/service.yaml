@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+{{ include "aspnet-app.labels.stakater" . | indent 4 }}
+{{ include "aspnet-app.labels.chart" . | indent 4 }}
+    k8sapp: maven-app   # label used by servicemonitor to monitor this service
+    expose: "{{ .Values.service.expose }}"
+  name: {{ template "aspnet-app.name" . }}
+{{- if .Values.service.annotations }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 4 }}
+{{- end }}
+spec:
+  selector:
+{{ toYaml .Values.deployment.podLabels | indent 4 }}
+  ports:
+  - name: web
+    port: {{ .Values.service.port }}
+    protocol: TCP
+    targetPort: {{ .Values.service.port }}

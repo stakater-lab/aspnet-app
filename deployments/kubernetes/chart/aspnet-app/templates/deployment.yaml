@@ -1,0 +1,31 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+{{ include "aspnet-app.labels.stakater" . | indent 4 }}
+{{ include "aspnet-app.labels.chart" . | indent 4 }}
+  name: {{ template "aspnet-app.name" . }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  template:
+    metadata:
+      labels:
+{{ toYaml .Values.deployment.podLabels | indent 8 }}
+    spec:
+      {{- if .Values.deployment.tolerations }}
+      tolerations:
+{{ toYaml .Values.deployment.tolerations | indent 8 -}}
+      {{- end }}
+      {{- if .Values.deployment.imagePullSecrets }}      
+      imagePullSecrets:
+      - name: {{ .Values.deployment.imagePullSecrets }}
+      {{- end }}
+      containers:
+      - name: {{ .Values.deployment.container.name }}
+        image: "{{ .Values.deployment.container.image.name }}:{{ .Values.deployment.container.image.tag }}"
+        {{- with .Values.deployment.container.probes }}
+{{ toYaml . | indent 8 }}
+        {{- end }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        serviceAccountName: {{ template "aspnet-app.name" . }}
