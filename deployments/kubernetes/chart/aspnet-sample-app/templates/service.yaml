@@ -2,11 +2,11 @@ kind: Service
 apiVersion: v1
 metadata:
   labels:
-{{ include "aspnet-sample-app.labels.stakater" . | indent 4 }}
-{{ include "aspnet-sample-app.labels.chart" . | indent 4 }}
+{{ include "aspnet-app.labels.stakater" . | indent 4 }}
+{{ include "aspnet-app.labels.chart" . | indent 4 }}
     k8sapp: maven-app   # label used by servicemonitor to monitor this service
     expose: "{{ .Values.service.expose }}"
-  name: {{ template "aspnet-sample-app.name" . }}
+  name: {{ template "aspnet-app.name" . }}
 {{- if .Values.service.annotations }}
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}

@@ -2,9 +2,9 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   labels:
-{{ include "aspnet-sample-app.labels.stakater" . | indent 4 }}
-{{ include "aspnet-sample-app.labels.chart" . | indent 4 }}
-  name: {{ template "aspnet-sample-app.name" . }}
+{{ include "aspnet-app.labels.stakater" . | indent 4 }}
+{{ include "aspnet-app.labels.chart" . | indent 4 }}
+  name: {{ template "aspnet-app.name" . }}
 spec:
   replicas: {{ .Values.deployment.replicas }}
   template:
@@ -28,4 +28,4 @@ spec:
         {{- end }}
         ports:
         - containerPort: {{ .Values.service.port }}
-        serviceAccountName: {{ template "aspnet-sample-app.name" . }}
+        serviceAccountName: {{ template "aspnet-app.name" . }}

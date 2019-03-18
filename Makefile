@@ -1,4 +1,4 @@
-CHART_NAME ?= aspnet-sample-app
+CHART_NAME ?= aspnet-app
 NAMESPACE_NAME ?= test
 RELEASE_NAME ?= $(NAMESPACE_NAME)-$(CHART_NAME)
 

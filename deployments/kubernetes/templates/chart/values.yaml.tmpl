@@ -5,9 +5,9 @@ labels:
 deployment:
   replicas: 1
   podLabels:      
-    app: aspnet-sample-app
+    app: aspnet-app
   container:
-    name: aspnet-sample-app
+    name: aspnet-app
     image:
       name: stakater/aspnet-app
       tag: {{ getenv "DOCKER_TAG" }}
