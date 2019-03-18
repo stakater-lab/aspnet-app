@@ -1,0 +1,16 @@
+labels:
+  group: com.stakater.platform
+  provider: stakater
+  version: {{ getenv "VERSION" }}
+deployment:
+  replicas: 1
+  podLabels:      
+    app: aspnet-sample-app
+  container:
+    name: aspnet-sample-app
+    image:
+      name: stakater/aspnet-app
+      tag: {{ getenv "DOCKER_TAG" }}
+service:
+  expose: true
+  port: 80

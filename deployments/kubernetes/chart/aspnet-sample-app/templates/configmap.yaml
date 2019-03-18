@@ -1,0 +1,11 @@
+{{- if .Values.configMap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+{{ include "aspnet-sample-app.labels.stakater" . | indent 4 }}
+{{ include "aspnet-sample-app.labels.chart" . | indent 4 }}
+  name: {{ template "aspnet-sample-app.name" . }}
+data:
+{{ toYaml .Values.configMap.data | indent 2 }}
+{{- end }}

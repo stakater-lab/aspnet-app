@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+{{ include "aspnet-sample-app.labels.stakater" . | indent 4 }}
+{{ include "aspnet-sample-app.labels.chart" . | indent 4 }}
+  name: {{ template "aspnet-sample-app.name" . }}
